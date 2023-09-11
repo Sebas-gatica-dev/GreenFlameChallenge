@@ -9,7 +9,7 @@
  Lo primero que hice fue aplicar ingenieria inversa con MysqlWorkbench, para generar un diagrama y entender visualmente las relaciones entre los datos.
 
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://drive.google.com/file/d/1f_GNrxpiONZMWcjDKzkzQ_H97G7HBpOx/view?usp=drive_link" width="400" alt="Laravel Logo"></a></p>
+
 
 
 - Inicie un poyecto en laravel 10, version que utiliza PHP 8.
