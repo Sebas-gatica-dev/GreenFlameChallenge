@@ -14,9 +14,9 @@
 
 - Inicie un poyecto en laravel 10, version que utiliza PHP 8.
 - Me dispuse a no utilizar ningun paquete como JetStream o Laravel Breeze, por eso genere un sistema de login y autenticacion custom, completamente desde cero.
-- Tome una plantilla HTML muy popular llamada SB admin2, y apartir de ella gnre layoouts y componentes de blade.
-- Desarrolle las migracione adecuadas para generar las tablas, junto conlos seeders necesarios para tenes algunos datos inciales.
-- Cuando conclui la interfaz  logre que el formulario de creacion me responda como queria procedi al desarrollo dmas profundo de los controladores.
+- Tome una plantilla HTML muy popular llamada SB admin2, y apartir de ella genere layoouts y componentes de blade.
+- Desarrolle las migraciones adecuadas para generar las tablas, junto con los seeders necesarios para tener algunos datos inciales.
+- Cuando conclui la interfaz  logre que el formulario de creacion me responda como queria, procedi al desarrollo dmas profundo de los controladores.
 
 
 ## Comenzar
@@ -38,7 +38,7 @@ Para comenzar, luego de clonar el repositorio, dbera ejecutar los siguientes com
   ```
   >Este comando instalara las depedencias de vite, para que la aplicacion cargue automaticamente los cambios.
   
-  Luego, si deseacorer elproyecto de manera local, puede tomar el archivo ".env.example" y cambiar su nombre a  ".env", abrir el archivo y dirigirse a la propiedad DB_DATABASE= y setearla con el nombre d ela bas de datos que desea usar, e mi casosuelo usar Xampp, por eso, al entrar  en phpmyadmin, podra crear la base de datos que desee, o se creara automaticamente conrriendo elsiguiente comando 
+  Luego, si desea correr el proyecto de manera local, puede tomar el archivo ".env.example" y cambiar su nombre a  ".env", abrir el archivo y dirigirse a la propiedad DB_DATABASE= y setearla con el nombre de la base de datos que desea usar, en mi casosuelo usar Xampp, por eso, al entrar en phpmyadmin, podra crear la base de datos que desee, o se creara automaticamente corriendo el siguiente comando 
 
   ```shell
      php artisan migrate
