@@ -7,6 +7,8 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\DiscountRangeSeeder;
 use Database\Seeders\AccessTypeSeeder;
 use Database\Seeders\RegionSeeder;
+use Database\Seeders\UserSeeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,6 +26,7 @@ class DatabaseSeeder extends Seeder
             BrandSeeder::class,
             AccessTypeSeeder::class,
             RegionSeeder::class,
+            UserSeeder::class
 
         ]);
 

@@ -14,23 +14,23 @@
     <hr class="sidebar-divider my-0">
     
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a class="nav-link" href="{{ route('dashboard') }}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
     </li>
-    
+     --}}
     <li class="nav-item">
       <a class="nav-link" href="{{ route('discounts') }}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Product</span></a>
+        <span>Descuentos</span></a>
     </li>
     
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a class="nav-link" href="/profile">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Profile</span></a>
-    </li>
+    </li> --}}
     
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

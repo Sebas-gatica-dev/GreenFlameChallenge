@@ -1,11 +1,11 @@
 @extends('layouts.app')
   
-@section('title', 'Home discount')
+@section('title', '¡Bievenido Nuevamente!')
   
 @section('contents')
     <div class="d-flex align-items-center justify-content-between">
-        <h1 class="mb-0">List discount</h1>
-        <a href="{{ route('discounts.create') }}" class="btn btn-primary">Add discount</a>
+        <h1 class="mb-0">Lista de Descuentos</h1>
+        <a href="{{ route('discounts.create') }}" class="btn btn-success">Crear descuento</a>
     </div>
     <hr />
     @if(Session::has('success'))
@@ -14,7 +14,7 @@
         </div>
     @endif
     <table class="table table-hover">
-        <thead class="table-primary">
+        <thead class="table-success">
             <tr>
                      <th>Rentadora</th>
                     <th >Region</th>

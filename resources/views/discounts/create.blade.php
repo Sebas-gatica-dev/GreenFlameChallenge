@@ -3,7 +3,7 @@
 @section('title', 'Create Discount')
   
 @section('contents')
-    <h1 class="mb-4">Add Discount</h1>
+    <h1 class="mb-4">Crear Descuento</h1>
     <hr />
 
     <form action="{{ route('discounts.store') }}" method="POST" enctype="multipart/form-data">
@@ -103,7 +103,7 @@
         
 
         <div class="mb-3">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-success">Submit</button>
         </div>
     </form>
    <!-- Tu código HTML anterior -->

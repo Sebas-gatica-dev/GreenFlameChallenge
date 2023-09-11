@@ -56,8 +56,65 @@ class DiscountController extends Controller
      */
     public function store(Request $request)
     {
-        Discount::create($request->all());
- 
+
+       
+        // Obtener los IDs correspondientes de region, brand y accessType
+            // $regionId = Region::where('code', $request->input('region'))->first()->id;
+            // $brandId = Brand::where('name', $request->input('brand'))->first()->id;
+            // $accessTypeCode = $request->input('access_type');
+
+            // Guardar la regla de descuento con los IDs correspondientes
+            $discount = Discount::create([
+                'name' => $request->input('name'),
+                'start_date' => $request->input('start_date'),
+                'end_date' => $request->input('end_date'),
+                'priority' => $request->input('priority'),
+                'active' => $request->has('active'),
+                'region_id' => $request->input('region'),
+                'brand_id' => $request->input('brand'),
+                'access_type_code' => $request->input('access_type'),
+            ]);
+
+
+            dd($discount);
+   // ... Lógica para guardar campos de reglas de descuento en discount_ranges ...
+
+                $discountRanges = [];
+
+                for ($i = 1; $i <= 3; $i++) {
+                    $fieldA = $request->input("field{$i}a");
+                    $fieldB = $request->input("field{$i}b");
+                    $awd = $request->input("awd{$i}");
+                    $percentage = $request->input("percentage{$i}");
+
+                    // Verificar si al menos uno de los campos en el grupo no está vacío o es numérico
+                    if (
+                        is_numeric($fieldA) && is_numeric($fieldB) &&
+                        ($awd || $percentage)
+                    ) {
+                        $discountRanges[] = new DiscountRange([
+                            'from_days' => $fieldA,
+                            'to_days' => $fieldB,
+                            'discount' => $percentage,
+                            'code' => $awd,
+                            'discount_id' => $discount->id
+                        ]);
+                    }
+                    
+                }
+
+// Asociar las reglas de descuento con el descuento principal
+        $discount->ranges()->saveMany($discountRanges);
+
+
+
+
+
+   // Redireccionar a la vista deseada después de guardar
+
+
+
+        
         return redirect()->route('discounts.index')->with('success', 'discount added successfully');
     }
   
