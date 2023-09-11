@@ -2,13 +2,6 @@
 # GreenFlameChallenge
 
 
-Al escribir este README, es mi intención dejar en evidencia mi profunda comprensión del curso <a target="_BLANK" href="https://www.udemy.com/course/crea-tu-portafolio-dinamico-con-laravel-livewire-y-tdd/">crea tu portafolio dinamico con laravel livewire y tdd<a/>, en verdad, fue muy positivo para mí..
-
->Este maravilloso portafolio, desarrollado en el paquete de Laravel Breeze, está construido utilizando la metodología de trabajo TDD o Test Driven Development (desarrollo dirigido por pruebas). Es una práctica de programación en la que se comienzan escribiendo las pruebas en primer lugar, luego se escribe el código fuente, pasando correctamente la prueba y finalizando con la refactorización del código escrito. Este proyecto fue desarrollado en Laravel 10, aplicando tecnologías como Livewire, Alpine.js y Tailwind CSS.
- 
-
-
-
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 ## Primeros Pasos
