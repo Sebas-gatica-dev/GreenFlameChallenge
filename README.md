@@ -50,7 +50,13 @@ Una vez hecho esto es conveniente ejecutar  los seeders
      php artisan db:seed
   ```
   >De esta forma ya tendra un usuario, y la tablas mas basicas pobladas.
-  
+
+Sin embargo antes de jecutarla aplicacion hay que generar una APP_KEY
+
+ ```shell
+      php artisan key:generate
+  ```
+  >Ahora que poses una APP_KEY puedes ejecutar la aplicaicon utilizando estearchivo .env .
 
 Tan solo bastaria con abrir otra terminal para ejecutar un comando en cada una de ellas
 
