@@ -73,7 +73,7 @@ Tan solo bastaria con abrir otra terminal para ejecutar un comando en cada una d
        Hago un esfuerzo constante por trabajar para subsistir y a la vez seguir aprendiendo y formandome, persiguiendo mi sueño.
      Espero algun dia tener la chance de dedicarme enteramente al desarrollo, para sacar a luz todo mi potencial... por eso aunque me decilucione no haber terminado el challenge a tiempo, lo voy a terminar de todas maneras para mi, esta fue una hermosa oportunidad de aprender e intentar superarme. Por eso muchas gracias.
      
-     Sebastian Gatica
+###Sebastian Gatica
      
      
   
