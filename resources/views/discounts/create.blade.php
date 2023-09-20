@@ -8,6 +8,7 @@
 
     <form action="{{ route('discounts.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        
         <div class="mb-3">
             <label for="name" class="form-label">Nombre de la regla</label>
             <input type="text" name="name" class="form-control" id="name" placeholder="Nombre de regla">
@@ -47,7 +48,7 @@
 
         <div class="mb-3">
             <label for="numeric_field" class="form-label">Prioridad</label>
-            <input type="number" name="priority class="form-control" id="numeric_field" placeholder="Prioridad" min="1" max="1000">
+            <input type="number" name="priority" class="form-control" id="numeric_field" placeholder="Prioridad" min="1" max="1000">
         </div>
         
 
@@ -106,97 +107,22 @@
             <button type="submit" class="btn btn-success">Submit</button>
         </div>
     </form>
+
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
    <!-- Tu código HTML anterior -->
 
 <!-- JavaScript -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const group1 = document.getElementById("group1");
-        const group2 = document.getElementById("group2");
-        const group3 = document.getElementById("group3");
-
-        const field1a = document.getElementById("field1a");
-        const field1b = document.getElementById("field1b");
-        const field2a = document.getElementById("field2a");
-        const field2b = document.getElementById("field2b");
-        const field3a = document.getElementById("field3a");
-        const field3b = document.getElementById("field3b");
-
-        const awd1 = document.getElementById("awd1");
-        const awd2 = document.getElementById("awd2");
-        const awd3 = document.getElementById("awd3");
-
-        const percentage1 = document.getElementById("percentage1");
-        const percentage2 = document.getElementById("percentage2");
-        const percentage3 = document.getElementById("percentage3");
-
-        // Deshabilitar todos los campos de los grupos 2 y 3 al inicio
-        field2a.disabled = true;
-        field2b.disabled = true;
-        awd2.disabled = true;
-        percentage2.disabled = true;
-        field3a.disabled = true;
-        field3b.disabled = true;
-        awd3.disabled = true;
-        percentage3.disabled = true;
-
-        function checkGroup1() {
-            const value1a = parseInt(field1a.value);
-            const value1b = parseInt(field1b.value);
-            const awdValue1 = awd1.value.trim();
-            const percentageValue1 = percentage1.value.trim();
-
-            if (!isNaN(value1a) && !isNaN(value1b) && value1a <= value1b && (awdValue1 !== "" || percentageValue1 !== "")) {
-                field2a.disabled = false;
-                field2b.disabled = false;
-                awd2.disabled = false;
-                percentage2.disabled = false;
-            } else {
-                field2a.disabled = true;
-                field2b.disabled = true;
-                awd2.disabled = true;
-                percentage2.disabled = true;
-                field3a.disabled = true;
-                field3b.disabled = true;
-                awd3.disabled = true;
-                percentage3.disabled = true;
-            }
-        }
-
-        function checkGroup2() {
-            const value2a = parseInt(field2a.value);
-            const value2b = parseInt(field2b.value);
-            const awdValue2 = awd2.value.trim();
-            const percentageValue2 = percentage2.value.trim();
-
-            if (!isNaN(value2a) && !isNaN(value2b) && value2a <= value2b && (awdValue2 !== "" || percentageValue2 !== "")) {
-                field3a.disabled = false;
-                field3b.disabled = false;
-                awd3.disabled = false;
-                percentage3.disabled = false;
-            } else {
-                field3a.disabled = true;
-                field3b.disabled = true;
-                awd3.disabled = true;
-                percentage3.disabled = true;
-            }
-        }
-
-        field1a.addEventListener("input", checkGroup1);
-        field1b.addEventListener("input", checkGroup1);
-        awd1.addEventListener("input", checkGroup1);
-        percentage1.addEventListener("input", checkGroup1);
-
-        field2a.addEventListener("input", checkGroup2);
-        field2b.addEventListener("input", checkGroup2);
-        awd2.addEventListener("input", checkGroup2);
-        percentage2.addEventListener("input", checkGroup2);
-
-
-
-        
-    });
-</script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     
     

@@ -95,6 +95,172 @@
       });
   });
 </script>
+<script>
+    // $(document).ready(function () {
+    //     const group1 = $("#group1");
+    //     const group2 = $("#group2");
+    //     const group3 = $("#group3");
+
+    //     const field1a = $("#field1a");
+    //     const field1b = $("#field1b");
+    //     const field2a = $("#field2a");
+    //     const field2b = $("#field2b");
+    //     const field3a = $("#field3a");
+    //     const field3b = $("#field3b");
+
+    //     const awd1 = $("#awd1");
+    //     const awd2 = $("#awd2");
+    //     const awd3 = $("#awd3");
+
+    //     const percentage1 = $("#percentage1");
+    //     const percentage2 = $("#percentage2");
+    //     const percentage3 = $("#percentage3");
+
+    //     // Deshabilitar todos los campos de los grupos 2 y 3 al inicio
+    //     field2a.prop("disabled", true);
+    //     field2b.prop("disabled", true);
+    //     awd2.prop("disabled", true);
+    //     percentage2.prop("disabled", true);
+    //     field3a.prop("disabled", true);
+    //     field3b.prop("disabled", true);
+    //     awd3.prop("disabled", true);
+    //     percentage3.prop("disabled", true);
+
+    //     function checkGroup1() {
+    //         const value1a = parseInt(field1a.val());
+    //         const value1b = parseInt(field1b.val());
+    //         const awdValue1 = awd1.val().trim();
+    //         const percentageValue1 = percentage1.val().trim();
+
+    //         if (!isNaN(value1a) && !isNaN(value1b) && value1a <= value1b && (awdValue1 !== "" || percentageValue1 !== "")) {
+    //             field2a.prop("disabled", false);
+    //             field2b.prop("disabled", false);
+    //             awd2.prop("disabled", false);
+    //             percentage2.prop("disabled", false);
+    //         } else {
+    //             field2a.prop("disabled", true);
+    //             field2b.prop("disabled", true);
+    //             awd2.prop("disabled", true);
+    //             percentage2.prop("disabled", true);
+    //             field3a.prop("disabled", true);
+    //             field3b.prop("disabled", true);
+    //             awd3.prop("disabled", true);
+    //             percentage3.prop("disabled", true);
+    //         }
+    //     }
+
+    //     function checkGroup2() {
+    //         const value2a = parseInt(field2a.val());
+    //         const value2b = parseInt(field2b.val());
+    //         const awdValue2 = awd2.val().trim();
+    //         const percentageValue2 = percentage2.val().trim();
+
+    //         if (!isNaN(value2a) && !isNaN(value2b) && value2a <= value2b && (awdValue2 !== "" || percentageValue2 !== "")) {
+    //             field3a.prop("disabled", false);
+    //             field3b.prop("disabled", false);
+    //             awd3.prop("disabled", false);
+    //             percentage3.prop("disabled", false);
+    //         } else {
+    //             field3a.prop("disabled", true);
+    //             field3b.prop("disabled", true);
+    //             awd3.prop("disabled", true);
+    //             percentage3.prop("disabled", true);
+    //         }
+    //     }
+
+    //     field1a.on("input", checkGroup1);
+    //     field1b.on("input", checkGroup1);
+    //     awd1.on("input", checkGroup1);
+    //     percentage1.on("input", checkGroup1);
+
+    //     field2a.on("input", checkGroup2);
+    //     field2b.on("input", checkGroup2);
+    //     awd2.on("input", checkGroup2);
+    //     percentage2.on("input", checkGroup2);
+    // });
+
+    $(document).ready(function () {
+        const group1 = $("#group1");
+        const group2 = $("#group2");
+        const group3 = $("#group3");
+
+        const field1a = $("#field1a");
+        const field1b = $("#field1b");
+        const field2a = $("#field2a");
+        const field2b = $("#field2b");
+        const field3a = $("#field3a");
+        const field3b = $("#field3b");
+
+        const awd1 = $("#awd1");
+        const awd2 = $("#awd2");
+        const awd3 = $("#awd3");
+
+        const percentage1 = $("#percentage1");
+        const percentage2 = $("#percentage2");
+        const percentage3 = $("#percentage3");
+
+        function checkFields() {
+            const value1a = parseInt(field1a.val());
+            const value1b = parseInt(field1b.val());
+            const awdValue1 = awd1.val().trim();
+            const percentageValue1 = percentage1.val().trim();
+
+            const value2a = parseInt(field2a.val());
+            const value2b = parseInt(field2b.val());
+            const awdValue2 = awd2.val().trim();
+            const percentageValue2 = percentage2.val().trim();
+
+            const value3a = parseInt(field3a.val());
+            const value3b = parseInt(field3b.val());
+            const awdValue3 = awd3.val().trim();
+            const percentageValue3 = percentage3.val().trim();
+
+            // Habilita o deshabilita los campos según las condiciones
+            if (!isNaN(value1a) && !isNaN(value1b) && value1a <= value1b && (awdValue1 !== "" || percentageValue1 !== "")) {
+                field2a.prop("disabled", false);
+                field2b.prop("disabled", false);
+                awd2.prop("disabled", false);
+                percentage2.prop("disabled", false);
+            } else {
+                field2a.prop("disabled", true);
+                field2b.prop("disabled", true);
+                awd2.prop("disabled", true);
+                percentage2.prop("disabled", true);
+                field3a.prop("disabled", true);
+                field3b.prop("disabled", true);
+                awd3.prop("disabled", true);
+                percentage3.prop("disabled", true);
+            }
+
+            if (!isNaN(value2a) && !isNaN(value2b) && value2a <= value2b && (awdValue2 !== "" || percentageValue2 !== "")) {
+                field3a.prop("disabled", false);
+                field3b.prop("disabled", false);
+                awd3.prop("disabled", false);
+                percentage3.prop("disabled", false);
+            } else {
+                field3a.prop("disabled", true);
+                field3b.prop("disabled", true);
+                awd3.prop("disabled", true);
+                percentage3.prop("disabled", true);
+            }
+        }
+
+        // Ejecuta la función al cargar la página y cuando se cambian los valores
+        checkFields();
+
+        field1a.on("input", checkFields);
+        field1b.on("input", checkFields);
+        awd1.on("input", checkFields);
+        percentage1.on("input", checkFields);
+
+        field2a.on("input", checkFields);
+        field2b.on("input", checkFields);
+        awd2.on("input", checkFields);
+        percentage2.on("input", checkFields);
+    });
+</script>
+
+    
 
 </body>
 </html>

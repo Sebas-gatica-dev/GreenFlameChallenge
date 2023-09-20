@@ -29,11 +29,11 @@
                     <th >Acciones</th>
             </tr>
         </thead>
-        <tbody>+
+        <tbody>
             @if($discounts->count() > 0)
                 @foreach($discounts as $discount)
                     <tr>
-                        <<td class="align-middle">
+                        <td class="align-middle">
 
                             @foreach ($brands as $brand )
                             @if ($discount->brand_id === $brand->id)
@@ -42,9 +42,26 @@
                             @endforeach
     
                         </td>
-                        <td class="align-middle">{{$discount->region_id}}</td>
+                        <td class="align-middle">
+                     
+                       @foreach ( $regions as $region)
+                             @if ($region->id === $discount->region_id)
+                                {{ $region->code;}}
+                             @endif
+                         
+                       
+                       @endforeach
+            </td>
                         <td class="align-middle">{{$discount->name}}</td>
-                        <td class="align-middle">{{$discount->access_type_code}}</td>
+                        <td class="align-middle">
+                        @foreach($access_types as $access_type)
+                            @if ($discount->access_type_code === $access_type->code)
+                               {{ $access_type->name}}
+                            @endif
+                        @endforeach
+                                                
+                        
+                        </td>
                         <td class="align-middle">
                             @if ( $discount->active === 1)
                                 Activo
@@ -56,6 +73,7 @@
                             @foreach ($discount_ranges as $discount_range )
                                 @if ($discount_range->discount_id === $discount->id)
                                     {{ $discount_range->from_days }} - {{ $discount_range->to_days }}
+                                    <br>
                                 @endif
                             @endforeach
                         </td>
@@ -64,26 +82,44 @@
                                 @foreach ($discount_ranges as $discount_range )
                                     @if ($discount_range->discount_id === $discount->id)
                                         {{ $discount_range->code }}
+                                        <br>
                                     @endif
                                 @endforeach
                             @endif
                         </td>
+
+
+                       
+
                         <td class="align-middle">
                             @foreach ($discount_ranges as $discount_range )
                                 @if ($discount_range->discount_id === $discount->id)
                                     {{ $discount_range->discount }}%
+                                    <br>
                                 @endif
                             @endforeach
                         </td>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="{{ route('discounts.show', $rs->id) }}" type="button" class="btn btn-secondary">Detail</a>
-                                <a href="{{ route('discounts.edit', $rs->id)}}" type="button" class="btn btn-warning">Edit</a>
-                                <form action="{{ route('discounts.destroy', $rs->id) }}" method="POST" type="button" class="btn btn-danger p-0" onsubmit="return confirm('Delete?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger m-0">Delete</button>
-                                </form>
-                            </div>
+                        <td class="align-middle">
+                           
+                            {{ substr($discount->start_date, 0, -9) }} / {{ substr($discount->end_date, 0, -9) }}
+                           
+                        </td>
+
+     
+                        <td class="align-middle">
+                           {{$discount->priority}}
+                        </td>
+                        <td class="align-middle">
+                            <a href="{{ route('discounts.show', $discount->id) }}" type="button" class="btn btn-secondary btn-block">Detail</a>
+                            <a href="{{ route('discounts.edit', $discount->id)}}" type="button" class="btn btn-warning btn-block mt-2">Edit</a>
+                            <form action="{{ route('discounts.destroy', $discount->id) }}" method="POST" class="mt-2" onsubmit="return confirm('Delete?')">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-block">Delete</button>
+                            </form>
+                        </td>
+                        
+                           
                         </td>
                     </tr>
                 @endforeach
@@ -94,4 +130,5 @@
             @endif
         </tbody>
     </table>
+   
 @endsection

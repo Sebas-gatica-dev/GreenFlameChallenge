@@ -10129,7 +10129,9 @@ a:focus {
 .dropdown.no-arrow .dropdown-toggle::after {
   display: none;
 }
-
+.sidebar {
+  width: 200px; /* Ajusta este valor según tu preferencia */
+}
 .sidebar .nav-item.dropdown .dropdown-toggle::after,
 .topbar .nav-item.dropdown .dropdown-toggle::after {
   width: 1rem;
@@ -10509,7 +10511,7 @@ a:focus {
 
 @media (min-width: 768px) {
   .sidebar {
-    width: 14rem !important;
+    width: 13rem !important;
   }
   .sidebar .nav-item .collapse {
     position: relative;

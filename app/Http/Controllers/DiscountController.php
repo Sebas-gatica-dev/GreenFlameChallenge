@@ -2,6 +2,7 @@
   
 namespace App\Http\Controllers;
   
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\AccessType;
@@ -11,6 +12,49 @@ use App\Models\DiscountRange;
  
 class DiscountController extends Controller
 {
+
+
+    private function getBrandId($brandName)
+    {
+      $brands= Brand::all();
+
+      foreach($brands as $brand){
+
+        if($brandName === $brand->name){
+            return $brand->id;
+        }
+
+      }
+
+
+
+
+       return $brand->id;
+    }
+    
+    private function getRegionId($regionName)
+    {
+
+        $regions= Region::all();
+
+        foreach($regions as $region){
+
+            if($regionName === $region->name){
+                return $region->id;
+
+            }
+    
+          }
+    }
+    
+    
+    
+    
+    
+    
+    
+
+
     /**
      * Display a listing of the resource.
      */
@@ -19,18 +63,48 @@ class DiscountController extends Controller
         $regions = Region::all();
         $brands = Brand::all();
         $access_types = AccessType::all();
-        $discount_ranges = DiscountRange::all();
+        $discount_ranges = DiscountRange::orderby('discount_id', 'ASC')->get();
         $discounts = Discount::orderBy('created_at', 'DESC')->get();
+
   
         return view('discounts.index', [
             'discounts' => $discounts,
             'regions' => $regions,
             'brands'=> $brands,
-            'acess_types'=> $access_types,
+            'access_types'=> $access_types,
             'discount_ranges' => $discount_ranges
         ]);
-    }
+
+    }   
+
+    //     return  [
+    //         'discounts' => $discounts,
+    //         'regions' => $regions,
+    //         'brands'=> $brands,
+    //         'access_types'=> $access_types,
+    //         'discount_ranges' => $discount_ranges
+    //     ];
+    // }
   
+    // public function index()
+    // {
+    //     $discounts = Discount::orderBy('created_at', 'DESC')
+    //         ->join('regions', 'discounts.region_id', '=', 'regions.id')
+    //         ->join('brands', 'discounts.brand_id', '=', 'brands.id')
+    //         ->join('access_types', 'discounts.access_type_id', '=', 'access_types.id')
+    //         ->join('discount_ranges', 'discounts.discount_range_id', '=', 'discount_ranges.id')
+    //         ->select('discounts.*', 'regions.nombre as region_nombre', 'brands.nombre as brand_nombre', 'access_types.nombre as access_type_nombre', 'discount_ranges.nombre as discount_range_nombre')
+    //         ->paginate(10);
+    
+    //     return view('discounts.index', [
+    //         'discounts' => $discounts,
+    //     ]);
+    // }
+    
+
+
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -57,97 +131,128 @@ class DiscountController extends Controller
     public function store(Request $request)
     {
 
-       
-        // Obtener los IDs correspondientes de region, brand y accessType
-            // $regionId = Region::where('code', $request->input('region'))->first()->id;
-            // $brandId = Brand::where('name', $request->input('brand'))->first()->id;
-            // $accessTypeCode = $request->input('access_type');
+        dd($request);
 
-            // Guardar la regla de descuento con los IDs correspondientes
-            $discount = Discount::create([
-                'name' => $request->input('name'),
-                'start_date' => $request->input('start_date'),
-                'end_date' => $request->input('end_date'),
-                'priority' => $request->input('priority'),
-                'active' => $request->has('active'),
-                'region_id' => $request->input('region'),
-                'brand_id' => $request->input('brand'),
-                'access_type_code' => $request->input('access_type'),
-            ]);
+     $start_date = Carbon::createFromFormat('d/m/Y', $request->input('start_date'))->format('Y-m-d');
+     $end_date = Carbon::createFromFormat('d/m/Y', $request->input('end_date'))->format('Y-m-d');
 
 
-            dd($discount);
-   // ... Lógica para guardar campos de reglas de descuento en discount_ranges ...
+  // Guardar datos en la tabla "discounts"
+  $discount = new Discount;
+  $discount->name = $request->input('name');
+  $discount->brand_id = $this->getBrandId($request->input('brand'));
+  $discount->region_id = $this->getRegionId($request->input('region'));
+  $discount->access_type_code = $request->input('access_type');
+  $discount->active = $request->input('active');
+  $discount->priority = $request->input('priority');
+  $discount->start_date = $start_date;
+  $discount->end_date = $end_date;
+  $discount->save();
 
-                $discountRanges = [];
+  // Guardar datos en la tabla "discount_ranges" de forma dinámica
+  for ($i = 1; $i <= 3; $i++) { // Suponiendo que tienes hasta 3 grupos de campos
+      $fielda = $request->input("field{$i}a");
+      $fieldb = $request->input("field{$i}b");
+      $awd = $request->input("awd{$i}");
+      $percentage = $request->input("percentage{$i}");
 
-                for ($i = 1; $i <= 3; $i++) {
-                    $fieldA = $request->input("field{$i}a");
-                    $fieldB = $request->input("field{$i}b");
-                    $awd = $request->input("awd{$i}");
-                    $percentage = $request->input("percentage{$i}");
+      if ($fielda && $fieldb && $awd || $percentage) {
+          $discountRange = new DiscountRange;
+          $discountRange->discount_id = $discount->id;
+          $discountRange->from_days = $fielda;
+          $discountRange->to_days = $fieldb;
+          $discountRange->code = $awd;
+          $discountRange->discount = $percentage;
+          $discountRange->save();
+      }
+  }
 
-                    // Verificar si al menos uno de los campos en el grupo no está vacío o es numérico
-                    if (
-                        is_numeric($fieldA) && is_numeric($fieldB) &&
-                        ($awd || $percentage)
-                    ) {
-                        $discountRanges[] = new DiscountRange([
-                            'from_days' => $fieldA,
-                            'to_days' => $fieldB,
-                            'discount' => $percentage,
-                            'code' => $awd,
-                            'discount_id' => $discount->id
-                        ]);
-                    }
-                    
-                }
+  // Otras operaciones o redirección después de guardar
 
-// Asociar las reglas de descuento con el descuento principal
-        $discount->ranges()->saveMany($discountRanges);
+  return redirect()->route('discounts');
 
 
 
-
-
-   // Redireccionar a la vista deseada después de guardar
-
-
-
-        
-        return redirect()->route('discounts.index')->with('success', 'discount added successfully');
     }
+
+
+
+
   
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
+        $discount_ranges = DiscountRange::where('discount_id', $id)->get();
         $discount = Discount::findOrFail($id);
+        $regions = Region::where('id', $discount->region_id)->first();
+        $brands = Brand::where('id', $discount->brand_id)->first();
+        $access_types = AccessType::where('code', $discount->access_type_code)->first();
+    
+       // dd($access_types);
   
-        return view('discounts.show', compact('discount'));
+        return view('discounts.show', [
+             'discount' => $discount,
+             'discount_ranges' => $discount_ranges,
+             'regions' => $regions,
+             'brands' => $brands,
+             'access_types' => $access_types
+        ]);
     }
   
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-    {
+    {     
+        
+        $discount_ranges = DiscountRange::where('discount_id', $id)->get();
         $discount = Discount::findOrFail($id);
+        $regions = Region::all();
+        $brands = Brand::all();
+        $brand_before = Brand::findOrFail($discount->brand_id);
+        $region_before = Brand::findOrFail($discount->brand_id);
+        $access_type_code_before = AccessType::where('code', $discount->access_type_code)->first();
+        $access_types = AccessType::all();
+    
+        //dd($discount_ranges);
   
-        return view('discounts.edit', compact('discount'));
+        return view('discounts.edit', [
+             'discount' => $discount,
+             'discount_ranges' => $discount_ranges,
+             'regions' => $regions,
+             'region_before'=> $region_before,
+             'brands' => $brands,
+             'brand_before' => $brand_before,
+             'access_types' => $access_types,
+             'access_type_code_before' => $access_type_code_before,
+        ]);
+
+  
     }
   
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,string $id,)
     {
-        $discount = Discount::findOrFail($id);
+
+       
+
+         $discount = Discount::findOrFail($id);
+
+         $discount_ranges = DiscountRange::where('discount_id', $id)->get();
+
+       
+
+
+
+        // $discount->update($request->all());
   
-        $discount->update($request->all());
-  
-        return redirect()->route('discounts')->with('success', 'Discount updated successfully');
+        // return redirect()->route('discounts')->with('success', 'Discount updated successfully');
+
+        return $request;
     }
   
     /**
