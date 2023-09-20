@@ -1,68 +1,96 @@
+
+# GreenFlameChallenge
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Primeros Pasos
 
-## About Laravel
+ Lo primero que hice fue aplicar ingenieria inversa con MysqlWorkbench, para generar un diagrama y entender visualmente las relaciones entre los datos.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Inicie un poyecto en laravel 10, version que utiliza PHP 8.
+- Me dispuse a no utilizar ningun paquete como JetStream o Laravel Breeze, por eso genere un sistema de login y autenticacion custom, completamente desde cero.
+- Tome una plantilla HTML muy popular llamada SB admin2, y apartir de ella genere layoouts y componentes de blade.
+- Desarrolle las migraciones adecuadas para generar las tablas, junto con los seeders necesarios para tener algunos datos inciales.
+- Cuando conclui la interfaz  logre que el formulario de creacion me responda como queria, procedi al desarrollo dmas profundo de los controladores.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Comenzar
 
-## Laravel Sponsors
+Para comenzar, luego de clonar el repositorio, dbera ejecutar los siguientes comandos
+  ```shell
+   cd GreenFlameChallenge
+  ```
+  >Para pararse en la carpeta raiz del proyecto.
+  
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+  ```shell
+      composer install
+  ```
+  >Este comando descargara las dependencias necesarias para levantar el servidor de laravel.
+  
+```shell
+     npm install
+  ```
+  >Este comando instalara las depedencias de vite, para que la aplicacion cargue automaticamente los cambios.
+  
+  Luego, si desea correr el proyecto de manera local, puede tomar el archivo ".env.example" y cambiar su nombre a  ".env", abrir el archivo y dirigirse a la propiedad DB_DATABASE= y setearla con el nombre de la base de datos que desea usar, en mi casosuelo usar Xampp, por eso, al entrar en phpmyadmin, podra crear la base de datos que desee, o se creara automaticamente corriendo el siguiente comando 
 
-### Premium Partners
+  ```shell
+     php artisan migrate
+  ```
+  >Este comando creara las tablas necesarias para la aplicacion. 
+  
+Una vez hecho esto es conveniente ejecutar  los seeders
+```shell
+     php artisan db:seed
+  ```
+  >De esta forma ya tendra un usuario, y la tablas mas basicas pobladas.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Sin embargo antes de jecutarla aplicacion hay que generar una APP_KEY
 
-## Contributing
+ ```shell
+      php artisan key:generate
+  ```
+  >Ahora que poses una APP_KEY puedes ejecutar la aplicaicon utilizando estearchivo .env .
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Tan solo bastaria con abrir otra terminal para ejecutar un comando en cada una de ellas
 
-## Code of Conduct
+```shell
+     php artisan serve
+  ```
+  >De esta forma habra levantado el servidor de laravel.
+  ```shell
+    npm run dev
+  ```
+  >Y con esta comando habra levantado el servdor de vite.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+  ### Devolucion Personal: 
 
-## Security Vulnerabilities
+  Desarrolle un sistema de autenticacion de usuario custom, desde cero. 
+  Genere controladores, seeders, migraciones, y factories.
+  La interfaz de usuario, diseño de la tabla y el mecanismo de muestra de la informacion esta a medio camino, asi como los controladores, y el testing para cada uno de sus metodos.
+  Actualmente me encuentro desarrollando, el manejo de los formularios, su validacion, aspectos relacionados con la seguridad del alta, baja y edicion de los datos
+     
+     
+     
+  
+  
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+ 
 
-## License
+ 
+.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# GreenFlameChallenge
-# GreenFlameChallenge
+
+
+
+ 
+  
+ 
+
+
