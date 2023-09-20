@@ -73,13 +73,9 @@ Tan solo bastaria con abrir otra terminal para ejecutar un comando en cada una d
 
   Desarrolle un sistema de autenticacion de usuario custom, desde cero. 
   Genere controladores, seeders, migraciones, y factories.
-  La interfaz de usuario, diseño de la tabla y el mecanismo de muestra de la infromacion esta a medio camino, asi como los controladores, y el testing para cada uno de sus metodos.
-   Sin embargo fue un gran esfuerzo para mi intenar realizar este challenge, me quede toda la noche, pensando en como solucionar los problemas que presento el challenge, y aprendi mucho en el proceso, me ubiera gustado haber estado mas preparado para poder aprovechar esta hermosa oportunidad.
-     Ojala me tengan en cuenta para futuras busquedas, ya que, aunque  no posea el nivel para realizar este proyecto en 48 horas, se que soy capaz de hacerlo muy bien.
-       Hago un esfuerzo constante por trabajar para subsistir y a la vez seguir aprendiendo y formandome, persiguiendo mi sueño.
-     Espero algun dia tener la chance de dedicarme enteramente al desarrollo, para sacar a luz todo mi potencial... por eso aunque me decilucione no haber terminado el challenge a tiempo, lo voy a terminar de todas maneras para mi, esta fue una hermosa oportunidad de aprender e intentar superarme. Por eso muchas gracias.
+  La interfaz de usuario, diseño de la tabla y el mecanismo de muestra de la informacion esta a medio camino, asi como los controladores, y el testing para cada uno de sus metodos.
+  Actualmente me encuentro desarrollando, el manejo de los formularios, su validacion, aspectos relacionados con la seguridad del alta, baja y edicion de los datos
      
-
      
      
   
