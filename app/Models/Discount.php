@@ -32,16 +32,16 @@ class Discount extends Model
 {
     use SoftDeletes;
 
-    static $rules = [
-		'name' => 'required',
-		'start_date' => 'required',
-		'end_date' => 'required',
-		'priority' => 'required',
-		'active' => 'required',
-		'region_id' => 'required',
-		'brand_id' => 'required',
-		'access_type_code' => 'required',
-    ];
+    // static $rules = [
+	// 	'name' => 'required',
+	// 	'start_date' => 'required',
+	// 	'end_date' => 'required',
+	// 	'priority' => 'required',
+	// 	'active' => 'required',
+	// 	'region_id' => 'required',
+	// 	'brand_id' => 'required',
+	// 	'access_type_code' => 'required',
+    // ];
 
     protected $perPage = 20;
 

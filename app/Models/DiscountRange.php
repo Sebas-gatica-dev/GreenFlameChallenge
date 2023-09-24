@@ -9,6 +9,6 @@ class DiscountRange extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'name', 'display_order'];
+    protected $fillable = ['from_days','to_days','discount','code', 'discount_id'];
 
 }

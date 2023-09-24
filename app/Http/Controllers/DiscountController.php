@@ -9,7 +9,9 @@ use App\Models\AccessType;
 use App\Models\Region;
 use App\Models\Discount;
 use App\Models\DiscountRange;
- 
+use Illuminate\Support\Facades\Validator;
+
+
 class DiscountController extends Controller
 {
 
@@ -49,7 +51,50 @@ class DiscountController extends Controller
     
     
     
-    
+
+    private function saveDiscountRange($discountId, $fielda, $fieldb, $awd, $percentage) {
+        // Validaciones personalizadas
+        $validator = Validator::make([
+            "fielda" => $fielda,
+            "fieldb" => $fieldb,
+            "awd" => $awd,
+            "percentage" => $percentage,
+        ], [
+            "fielda" => "required|numeric",
+            "fieldb" => "required|numeric|gte:fielda",
+            "awd" => "nullable|max:10|alpha_num",
+            "percentage" => "nullable|numeric|max:80",
+        ]);
+        
+        // Personalizar el mensaje de error para el caso en que awd o percentage sea requerido
+        $validator->sometimes(['awd', 'percentage'], 'required', function ($input) {
+            return empty($input->awd) && empty($input->percentage);
+        });
+        
+        // Verifica si la validación falla
+        if ($validator->fails()) {
+            // Maneja el caso de validación fallida aquí, por ejemplo, puedes redirigir al usuario o mostrar errores.
+        } else {
+            // La validación pasó, puedes crear y guardar el DiscountRange.
+            // $discountRange = new DiscountRange;
+            // $discountRange->discount_id = $discountId;
+            // $discountRange->from_days = $fielda;
+            // $discountRange->to_days = $fieldb;
+            // $discountRange->code = $awd;
+            // $discountRange->discount = $percentage;
+            // $discountRange->save();
+           
+            $discountRange = DiscountRange::create([
+            'discount_id'=> $discountId,
+            'from_days' => $fielda,
+            'to_days'  => $fieldb,
+            'code' => $awd,
+            'discount' => $percentage
+            ]);
+      };
+        
+    }
+
     
     
     
@@ -131,46 +176,50 @@ class DiscountController extends Controller
     public function store(Request $request)
     {
 
-        dd($request);
+        // dd($request);
 
      $start_date = Carbon::createFromFormat('d/m/Y', $request->input('start_date'))->format('Y-m-d');
      $end_date = Carbon::createFromFormat('d/m/Y', $request->input('end_date'))->format('Y-m-d');
 
 
   // Guardar datos en la tabla "discounts"
-  $discount = new Discount;
-  $discount->name = $request->input('name');
-  $discount->brand_id = $this->getBrandId($request->input('brand'));
-  $discount->region_id = $this->getRegionId($request->input('region'));
-  $discount->access_type_code = $request->input('access_type');
-  $discount->active = $request->input('active');
-  $discount->priority = $request->input('priority');
-  $discount->start_date = $start_date;
-  $discount->end_date = $end_date;
-  $discount->save();
+  //$discount = new Discount;
+  $name = $request->input('name');
+  $brand_id = $this->getBrandId($request->input('brand'));
+  $region_id = $this->getRegionId($request->input('region'));
+  $access_type_code = $request->input('access_type');
+  $active = $request->input('active');
+  $priority = $request->input('priority');
+//   $discount->save();
 
-  // Guardar datos en la tabla "discount_ranges" de forma dinámica
-  for ($i = 1; $i <= 3; $i++) { // Suponiendo que tienes hasta 3 grupos de campos
-      $fielda = $request->input("field{$i}a");
-      $fieldb = $request->input("field{$i}b");
-      $awd = $request->input("awd{$i}");
-      $percentage = $request->input("percentage{$i}");
 
-      if ($fielda && $fieldb && $awd || $percentage) {
-          $discountRange = new DiscountRange;
-          $discountRange->discount_id = $discount->id;
-          $discountRange->from_days = $fielda;
-          $discountRange->to_days = $fieldb;
-          $discountRange->code = $awd;
-          $discountRange->discount = $percentage;
-          $discountRange->save();
-      }
-  }
+  $discount = Discount::create([
+    'name' => $name,
+    'start_date' => $start_date,
+    'end_date' => $end_date, 
+    'priority' => $priority,
+    'active' => $active,
+    'region_id' => $region_id,
+    'brand_id' => $brand_id,
+    'access_type_code' => $access_type_code
 
-  // Otras operaciones o redirección después de guardar
+  ]);
 
-  return redirect()->route('discounts');
+//Iteracion de ls tres posibles camposs que afectan a la tabla discount_ranges
 
+  for ($i = 1; $i <= 3; $i++) {           
+    $fielda = $request->input("field{$i}a");
+    $fieldb = $request->input("field{$i}b");
+    $awd = $request->input("awd{$i}");
+    $percentage = $request->input("percentage{$i}");
+
+    if ($fielda !== null || $fieldb !== null || $awd !== null || $percentage !== null) {
+        $this->saveDiscountRange($discount->id, $fielda, $fieldb, $awd, $percentage);
+    }
+}
+
+            // Otras operaciones o redirección después de guardar
+            return redirect()->route('discounts');
 
 
     }
