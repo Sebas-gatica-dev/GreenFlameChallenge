@@ -284,14 +284,23 @@ class DiscountController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,string $id,)
+    public function update(Upddted $request,string $id,)
     {
+
 
        
 
          $discount = Discount::findOrFail($id);
 
+
          $discount_ranges = DiscountRange::where('discount_id', $id)->get();
+
+         $start_date = 
+
+
+         Discount::update([
+        'name'=> 
+         ])
 
        
 
